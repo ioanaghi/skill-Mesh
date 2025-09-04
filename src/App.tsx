@@ -498,10 +498,8 @@ export default function App() {
   return (
     <div className="page">
       <header className="topbar">
-        <div className="topbar-content">
-          <div className="brand-dot" />
-          <div className="brand">SkillMesh — People/Projects • Graph • Report</div>
-        </div>
+        <div className="brand-dot" />
+        <div className="brand">SkillMesh — People/Projects • Graph • Report</div>
       </header>
 
       <main className="container">
