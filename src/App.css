@@ -98,7 +98,7 @@ select.input { color:#0f172a; }
 /* table */
 .table { width: 100%; border-collapse: collapse; }
 .table th, .table td { border:1px solid var(--border); padding: 8px 10px; text-align: left; font-size: 14px; }
-.table th { background:#f8fafc; }
+.table th { background:#334155; color: #ffffff; font-weight: 700; }
 .table td.ok { color:#166534; font-weight:700; }
 .table td.warn { color:#9a3412; font-weight:700; }
 
