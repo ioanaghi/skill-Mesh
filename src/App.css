@@ -30,7 +30,7 @@ body { margin: 0; font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI
 .label { font-weight: 600; }
 
 /* inputs/buttons */
-.input { height: 36px; padding: 0 10px; border: 1px solid var(--border); border-radius: 10px; background:#fff; min-width: 0; }
+.input { height: 36px; padding: 0 10px; border: 1px solid #334155; border-radius: 10px; background:#1e293b; color: #ffffff; min-width: 0; }
 .input.num { width: 74px; text-align: center; }
 .btn { height: 36px; padding: 0 12px; border-radius: 10px; border: 1px solid var(--border); background: #fff; cursor: pointer; }
 .btn:hover { background: #f3f4f6; }
@@ -38,20 +38,33 @@ body { margin: 0; font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI
 .btn.primary:hover { filter: brightness(1.05); }
 .btn.danger { background: #fee2e2; border-color: #fecaca; color: #991b1b; }
 .btn.danger:hover { background: #fecaca; }
-/* Ensure input text is black */
+/* Dark themed inputs */
 .input {
-  color: #000 !important;     /* black text */
-  background-color: #fff;     /* white background */
+  color: #ffffff !important;
+  background-color: #1e293b !important;
+  border-color: #334155 !important;
 }
 
-/* Optional: make placeholder text grey for readability */
-.input::placeholder {
-  color: #6b7280;  /* Tailwind gray-500 */
+.input:focus {
+  border-color: #8b5cf6;
+  box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.1);
 }
-/* Ensure inputs are readable */
-.input { color:#0f172a; background:#fff; }
-.input::placeholder { color:#64748b; }
-select.input { color:#0f172a; }
+
+/* Dark themed placeholder text */
+.input::placeholder {
+  color: #94a3b8;
+}
+
+/* Dark themed select inputs */
+select.input { 
+  color: #ffffff !important; 
+  background-color: #1e293b !important;
+}
+
+select.input option {
+  background-color: #1e293b !important;
+  color: #ffffff !important;
+}
 
 /* Buttons */
 .btn.primary, .btn.btn-primary { background:#2255AA; color:#fff; }
