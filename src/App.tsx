@@ -784,33 +784,54 @@ export default function App() {
 
           <div className="report-grid">
             {/* Snapshot */}
-            <div className="panel">
-              <div className="panel-title">Projects Snapshot</div>
-              <div className="kv"><span>People</span><b>{data.people.length}</b></div>
-              <div className="kv"><span>Projects</span><b>{data.projects.length}</b></div>
-
-              {/* Unassigned per project */}
-              <div className="kv">
-                <span>Unassigned hours (all)</span>
-                <b>{Array.from(unassignedByProject.values()).reduce((a, b) => a + b, 0)}</b>
+            <div className="panel snapshot-panel">
+              <div className="panel-title">📊 Projects Snapshot</div>
+              
+              {/* Key Metrics */}
+              <div className="metrics-grid">
+                <div className="metric-card">
+                  <div className="metric-value">{data.people.length}</div>
+                  <div className="metric-label">People</div>
+                </div>
+                <div className="metric-card">
+                  <div className="metric-value">{data.projects.length}</div>
+                  <div className="metric-label">Projects</div>
+                </div>
+                <div className="metric-card warn-metric">
+                  <div className="metric-value">{Array.from(unassignedByProject.values()).reduce((a, b) => a + b, 0)}</div>
+                  <div className="metric-label">Unassigned Hours</div>
+                </div>
               </div>
 
-              {/* Skill totals for unassigned */}
-              <div className="mt-2 text-xs">
-                {Array.from(unassignedSkillsMap.entries()).map(([skill, hrs]) => (
-                  <div key={skill}>{skill}: <b>{hrs}</b>h</div>
-                ))}
-              </div>
-
-              <div className="mt-2 text-xs">
-                {data.projects.map((pr) => {
-                  const ua = unassignedByProject.get(pr.id) ?? 0;
-                  return (
-                    <div key={pr.id} className={ua > 0 ? "warn" : ""}>
-                      {pr.title}: <b>{ua}</b>h unassigned
+              {/* Skills Breakdown */}
+              <div className="skills-breakdown">
+                <div className="breakdown-title">🔧 Skills Gap Analysis</div>
+                <div className="skills-list">
+                  {Array.from(unassignedSkillsMap.entries()).map(([skill, hrs]) => (
+                    <div key={skill} className="skill-item">
+                      <span className="skill-name">{skill}</span>
+                      <span className="skill-hours">{hrs}h</span>
                     </div>
-                  );
-                })}
+                  ))}
+                </div>
+              </div>
+
+              {/* Project Status */}
+              <div className="project-status">
+                <div className="breakdown-title">🎯 Project Status</div>
+                <div className="project-list">
+                  {data.projects.map((pr) => {
+                    const ua = unassignedByProject.get(pr.id) ?? 0;
+                    return (
+                      <div key={pr.id} className={`project-item ${ua > 0 ? 'project-warning' : 'project-good'}`}>
+                        <span className="project-name">{pr.title}</span>
+                        <span className={`project-hours ${ua > 0 ? 'hours-warning' : 'hours-good'}`}>
+                          {ua}h unassigned
+                        </span>
+                      </div>
+                    );
+                  })}
+                </div>
               </div>
             </div>
 
