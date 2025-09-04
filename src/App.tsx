@@ -1,5 +1,5 @@
 // @ts-nocheck
-import React, { useMemo, useRef, useState } from "react";
+import React, { useMemo, useRef, useState, useEffect } from "react";
 import CytoscapeComponent from "react-cytoscapejs";
 import "./App.css";
 import "./styles.css";
@@ -323,11 +323,61 @@ function allocateAllProjects(data) {
   return { rows, perProject, perPerson, unassignedSkills };
 }
 
+/* -------------------- Local Storage Utilities -------------------- */
+const STORAGE_KEY = 'skillmesh-data';
+
+function loadDataFromStorage() {
+  try {
+    const saved = localStorage.getItem(STORAGE_KEY);
+    if (saved) {
+      const parsed = JSON.parse(saved);
+      // Validate that the loaded data has the required structure
+      if (parsed.people && parsed.skills && parsed.projects) {
+        return parsed;
+      }
+    }
+  } catch (error) {
+    console.warn('Failed to load data from localStorage:', error);
+  }
+  return SEED; // Fallback to default data
+}
+
+function saveDataToStorage(data) {
+  try {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+    return true;
+  } catch (error) {
+    console.warn('Failed to save data to localStorage:', error);
+    return false;
+  }
+}
+
+function resetDataToDefault() {
+  try {
+    localStorage.removeItem(STORAGE_KEY);
+    return SEED;
+  } catch (error) {
+    console.warn('Failed to reset data:', error);
+    return SEED;
+  }
+}
+
 /* -------------------- App -------------------- */
 export default function App() {
-  const [data, setData] = useState(SEED);
-  const [personId, setPersonId] = useState(SEED.people[0].id);
-  const [projectId, setProjectId] = useState(SEED.projects[0].id);
+  const [data, setData] = useState(() => loadDataFromStorage());
+  const [personId, setPersonId] = useState(() => {
+    const loadedData = loadDataFromStorage();
+    return loadedData.people.length > 0 ? loadedData.people[0].id : SEED.people[0].id;
+  });
+  const [projectId, setProjectId] = useState(() => {
+    const loadedData = loadDataFromStorage();
+    return loadedData.projects.length > 0 ? loadedData.projects[0].id : SEED.projects[0].id;
+  });
+
+  // Auto-save data whenever it changes
+  useEffect(() => {
+    saveDataToStorage(data);
+  }, [data]);
 
   const cyRef = useRef(null);
   const elements = useMemo(() => buildGraph({ data }), [data]);
@@ -487,6 +537,50 @@ export default function App() {
   const [newProject, setNewProject] = useState({ title: "", owner: "", deadline: "" });
   const [newNeed, setNewNeed] = useState({ skill: "", level: 3, importanceLabel: "High", hours: 8 });
 
+  /* ---------- Data Management Functions ---------- */
+  const handleExportData = () => {
+    const dataStr = JSON.stringify(data, null, 2);
+    const dataBlob = new Blob([dataStr], { type: 'application/json' });
+    const url = URL.createObjectURL(dataBlob);
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = 'skillmesh-data.json';
+    link.click();
+    URL.revokeObjectURL(url);
+  };
+
+  const handleImportData = (event) => {
+    const file = event.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        try {
+          const importedData = JSON.parse(e.target.result);
+          if (importedData.people && importedData.skills && importedData.projects) {
+            setData(importedData);
+            // Reset selected IDs to first available
+            if (importedData.people.length > 0) setPersonId(importedData.people[0].id);
+            if (importedData.projects.length > 0) setProjectId(importedData.projects[0].id);
+          } else {
+            alert('Invalid file format. Please select a valid SkillMesh data file.');
+          }
+        } catch (error) {
+          alert('Error reading file. Please select a valid JSON file.');
+        }
+      };
+      reader.readAsText(file);
+    }
+  };
+
+  const handleResetData = () => {
+    if (confirm('Are you sure you want to reset all data to defaults? This cannot be undone.')) {
+      const defaultData = resetDataToDefault();
+      setData(defaultData);
+      setPersonId(defaultData.people[0].id);
+      setProjectId(defaultData.projects[0].id);
+    }
+  };
+
   /* ---------- Global allocation ---------- */
   const allocation = useMemo(() => allocateAllProjects(data), [data]);
   const combinedRows = allocation.rows;
@@ -500,6 +594,23 @@ export default function App() {
       <header className="topbar">
         <div className="brand-dot" />
         <div className="brand">SkillMesh — People/Projects • Graph • Report</div>
+        <div style={{ marginLeft: 'auto', display: 'flex', gap: '8px', alignItems: 'center' }}>
+          <button className="btn btn-ghost" onClick={handleExportData} title="Export data to file">
+            💾 Export
+          </button>
+          <label className="btn btn-ghost" style={{ cursor: 'pointer' }} title="Import data from file">
+            📁 Import
+            <input
+              type="file"
+              accept=".json"
+              onChange={handleImportData}
+              style={{ display: 'none' }}
+            />
+          </label>
+          <button className="btn btn-danger" onClick={handleResetData} title="Reset to default data">
+            🔄 Reset
+          </button>
+        </div>
       </header>
 
       <main className="container">

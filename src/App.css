@@ -81,6 +81,8 @@ body { margin: 0; font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI
 .btn.primary:hover { filter: brightness(1.05); }
 .btn.danger { background: #fee2e2; border-color: #fecaca; color: #991b1b; }
 .btn.danger:hover { background: #fecaca; }
+.btn.btn-ghost { background: transparent; color: #ffffff; border: 1px solid #334155; }
+.btn.btn-ghost:hover { background: #334155; }
 /* Dark themed inputs */
 .input {
   color: #ffffff !important;
