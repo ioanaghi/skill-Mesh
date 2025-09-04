@@ -828,7 +828,7 @@ export default function App() {
                         {person.role} • Hours avail {person.hoursAvail ?? 0}
                       </div>
                     </div>
-                    <div className="badge">{(score * 100).toFixed(0)}%</div>
+                    <div className={`badge ${score >= 0.8 ? 'score-excellent' : score >= 0.6 ? 'score-good' : score >= 0.4 ? 'score-medium' : 'score-low'}`}>{(score * 100).toFixed(0)}%</div>
                   </div>
                 ))}
               </div>
