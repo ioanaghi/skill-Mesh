@@ -85,7 +85,7 @@ select.input option {
 .tile-title { font-weight: 700; opacity: .95; }
 .chips { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 8px; }
 .chip { display: inline-flex; align-items: center; gap: 8px; padding: 6px 10px; border-radius: 999px; background: rgba(255,255,255,.15); color:#fff; font-size: 13px; }
-.chip .chip-x { background: rgba(0,0,0,.35); border:0; color:#fff; width: 22px; height: 22px; border-radius: 999px; cursor:pointer; }
+.chip .chip-x { background: rgba(0,0,0,.35); border:0; color:#fff; width: 22px; height: 22px; border-radius: 999px; cursor:pointer; display: flex; align-items: center; justify-content: center; }
 .chip .chip-x:hover { background: rgba(0,0,0,.55); }
 .chip.muted { background:#e2e8f0; color:#0f172a; }
 
