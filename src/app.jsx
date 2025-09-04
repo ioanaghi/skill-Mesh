@@ -526,7 +526,7 @@ function ComplianceDashboard({ data, focusProjectId }) {
           <div>People: {data.people.length}</div>
           <div>Projects: {data.projects.length}</div>
           <div>Open NCs: {openNCs.length}</div>
-          <div>Certs expiring < 60d: {expiring.length}</div>
+          <div>Certs expiring &lt; 60d: {expiring.length}</div>
         </div>
       </div>
 

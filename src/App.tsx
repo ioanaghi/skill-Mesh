@@ -1,7 +1,7 @@
 // @ts-nocheck
 import React, { useMemo, useRef, useState } from "react";
 import CytoscapeComponent from "react-cytoscapejs";
-import "./app.css";
+import "./App.css";
 import "./styles.css";
 
 /* -------------------- Importance mapping -------------------- */
