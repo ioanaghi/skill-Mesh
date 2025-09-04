@@ -1,0 +1,459 @@
+/* ---- Dark Theme Global Palette & Resets ---- */
+:root{
+  --bg: #0f0f23;          /* dark page background */
+  --surface: #1a1a2e;     /* dark cards/sections */
+  --surface-light: #16213e; /* slightly lighter surface */
+  --surface-hover: #1e293b; /* hover state surface */
+  --ink: #ffffff;         /* main text */
+  --muted: #94a3b8;      /* secondary text */
+  --muted-light: #cbd5e1; /* lighter muted text */
+  --primary: #8b5cf6;     /* purple primary */
+  --primary-600: #7c3aed;
+  --primary-400: #a78bfa;
+  --accent: #06b6d4;      /* cyan accent */
+  --warn: #f59e0b;        /* amber warning */
+  --danger: #ef4444;      /* red danger */
+  --success: #10b981;     /* green success */
+  --border: #334155;      /* dark border */
+  --border-light: #475569;
+  --chip: #1e293b;        /* dark chip background */
+  --chip-hover: #334155;
+  
+  /* Gradients */
+  --gradient-primary: linear-gradient(135deg, #8b5cf6 0%, #a78bfa 100%);
+  --gradient-surface: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+  --gradient-danger: linear-gradient(135deg, #ef4444 0%, #f87171 100%);
+  --gradient-success: linear-gradient(135deg, #10b981 0%, #34d399 100%);
+  
+  /* Shadows */
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+}
+
+/* Force dark background on all elements */
+.page, .container, .panel-grid, .card, .tile, .chips, .graph-wrap, .report {
+  background: var(--bg) !important;
+}
+
+.page .container {
+  background: var(--bg) !important;
+}
+
+.page .container .panel-grid {
+  background: var(--bg) !important;
+}
+
+.page .container .panel-grid .card {
+  background: var(--surface) !important;
+}
+
+/* Ensure all main containers use dark background */
+main {
+  background: var(--bg) !important;
+}
+
+section {
+  background: var(--bg) !important;
+}
+
+/* Override any light backgrounds */
+.card, .tile, .chips, .graph-wrap, .report, .panel {
+  background: var(--surface) !important;
+}
+
+/* Ensure the page background is dark */
+html, body, #root {
+  background: var(--bg) !important;
+}
+
+/* Force dark theme on all containers */
+.container, .grid-2, .panel-grid {
+  background: var(--bg) !important;
+}
+
+/* Page */
+html, body, #root { 
+  min-height: 100vh; 
+  background: var(--bg);
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+}
+
+html { 
+  background: var(--bg); 
+  font-size: 16px;
+  margin: 0;
+  padding: 0;
+}
+
+body{
+  background: var(--bg);
+  color: var(--ink);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  margin: 0;
+  padding: 0;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  line-height: 1.6;
+}
+
+/* Layout helpers */
+.container {
+  max-width: 1400px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 0 24px;
+  display: flex;
+  flex-direction: column;
+  min-height: calc(100vh - 80px);
+  background: var(--bg);
+}
+
+/* Two-column panel (people / projects) */
+.panel-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  padding: 24px 0;
+  flex: 1;
+  width: 100%;
+  min-height: 0;
+  background: var(--bg);
+}
+
+@media (max-width: 1024px){
+  .panel-grid { 
+    grid-template-columns: 1fr; 
+    gap: 20px;
+    padding: 20px 0;
+  }
+}
+
+@media (max-width: 768px) {
+  .container {
+    padding: 0 16px;
+  }
+  
+  .panel-grid {
+    gap: 16px;
+    padding: 16px 0;
+  }
+}
+
+@media (max-width: 480px) {
+  .container {
+    padding: 0 12px;
+  }
+  
+  .panel-grid {
+    gap: 12px;
+    padding: 12px 0;
+  }
+}
+
+.card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  padding: 24px;
+  box-shadow: var(--shadow-lg);
+  backdrop-filter: blur(10px);
+  transition: all 0.3s ease;
+  min-height: 0;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.card:hover {
+  box-shadow: var(--shadow-xl);
+  transform: translateY(-2px);
+}
+
+@media (max-width: 768px) {
+  .card {
+    padding: 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  .card {
+    padding: 16px;
+    border-radius: 16px;
+  }
+}
+
+/* Headings + labels */
+.h4{ 
+  font-weight: 700; 
+  font-size: 20px; 
+  color: var(--ink); 
+  margin-bottom: 8px; 
+  letter-spacing: -0.025em;
+}
+
+.label{ 
+  font-size: 12px; 
+  font-weight: 600; 
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 4px;
+  display: block;
+}
+
+/* Dark theme inputs / selects */
+input[type="text"],
+input[type="number"],
+select {
+  background: var(--surface-light);
+  color: var(--ink);
+  border: 2px solid var(--border);
+  border-radius: 12px;
+  padding: 12px 16px;
+  width: 100%;
+  outline: none;
+  transition: all 0.2s ease;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+input[type="text"]:focus,
+input[type="number"]:focus,
+select:focus {
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.1);
+  background: var(--surface-hover);
+}
+
+select option { 
+  color: var(--ink); 
+  background: var(--surface-light); 
+}
+
+/* Enhanced select styling for dark theme */
+select {
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%23ffffff' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='m6 8 4 4 4-4'/%3e%3c/svg%3e");
+  background-position: right 12px center;
+  background-repeat: no-repeat;
+  background-size: 16px;
+  padding-right: 40px;
+  appearance: none;
+  cursor: pointer;
+}
+
+select:hover {
+  background-color: var(--surface-hover);
+  border-color: var(--border-light);
+}
+
+/* Force dark theme on all select elements */
+select, select *, option {
+  background-color: var(--surface-light) !important;
+  color: var(--ink) !important;
+  border-color: var(--border) !important;
+}
+
+select option:hover {
+  background-color: var(--surface-hover) !important;
+}
+
+select option:checked {
+  background-color: var(--primary) !important;
+  color: white !important;
+}
+
+/* Ensure dropdown arrow is visible in dark theme */
+select::-ms-expand {
+  display: none;
+}
+
+/* Additional select styling for better dark theme appearance */
+select.input {
+  background-color: var(--surface-light) !important;
+  color: var(--ink) !important;
+}
+
+select.input option {
+  background-color: var(--surface-light) !important;
+  color: var(--ink) !important;
+}
+
+select.input option:hover {
+  background-color: var(--surface-hover) !important;
+}
+
+select.input option:checked {
+  background-color: var(--primary) !important;
+  color: white !important;
+}
+
+/* Dark theme buttons */
+.btn {
+  display: inline-flex; 
+  align-items: center; 
+  justify-content: center;
+  border-radius: 12px; 
+  padding: 12px 20px; 
+  font-weight: 600; 
+  cursor: pointer;
+  border: 2px solid transparent;
+  transition: all 0.2s ease;
+  font-size: 14px;
+  min-width: 120px;
+  white-space: nowrap;
+}
+
+.btn:hover {
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-md);
+}
+
+.btn-primary { 
+  background: var(--gradient-primary); 
+  color: #fff; 
+  border: none;
+  box-shadow: var(--shadow-md);
+}
+
+.btn-primary:hover { 
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-lg);
+  filter: brightness(1.05);
+}
+
+.btn-danger { 
+  background: var(--gradient-danger); 
+  color: #fff; 
+  border: none;
+  box-shadow: var(--shadow-md);
+}
+
+.btn-danger:hover { 
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-lg);
+  filter: brightness(1.05);
+}
+
+.btn-ghost { 
+  background: var(--surface-light); 
+  color: var(--ink); 
+  border: 2px solid var(--border);
+}
+
+.btn-ghost:hover { 
+  background: var(--surface-hover); 
+}
+
+@media (max-width: 768px) {
+  .btn {
+    padding: 10px 16px;
+    font-size: 13px;
+    min-width: 100px;
+  }
+}
+
+@media (max-width: 480px) {
+  .btn {
+    padding: 8px 12px;
+    font-size: 12px;
+    min-width: 80px;
+  }
+}
+
+/* Dark theme skill / need chips */
+.chips {
+  background: var(--surface-light);
+  border-radius: 16px; 
+  padding: 16px; 
+  color: var(--ink);
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow-sm);
+}
+
+.chip {
+  display: inline-flex; 
+  align-items: center; 
+  gap: 8px;
+  background: linear-gradient(135deg, var(--chip) 0%, var(--surface-hover) 100%);
+  color: var(--ink); 
+  padding: 8px 12px; 
+  border-radius: 20px;
+  font-size: 13px; 
+  margin: 3px 6px 0 0;
+  font-weight: 500;
+  border: 1px solid var(--border-light);
+  transition: all 0.2s ease;
+  box-shadow: var(--shadow-sm);
+}
+
+.chip:hover {
+  background: var(--surface-hover);
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-md);
+}
+
+.chip .x { 
+  background: var(--danger); 
+  border: none; 
+  color: #fff; 
+  border-radius: 50%; 
+  width: 20px; 
+  height: 20px; 
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+}
+
+.chip .x:hover {
+  background: #dc2626;
+  transform: scale(1.1);
+}
+
+/* Dark theme graph section */
+.graph-wrap{
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 16px;
+  margin-top: 16px;
+  box-shadow: var(--shadow-md);
+}
+
+#cy {
+  width: 100%;
+  height: 560px;
+  display: block;
+  background: var(--surface-light);
+  border-radius: 12px;
+}
+
+/* Dark theme report section */
+.report {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 18px;
+  margin-top: 16px;
+  box-shadow: var(--shadow-md);
+}
+
+/* Dark theme highlight rows and cells */
+.warn-row { 
+  background: rgba(245, 158, 11, 0.1); 
+}
+
+.warn { 
+  color: var(--warn); 
+  font-weight: 600; 
+}
+
+.ok { 
+  color: var(--success); 
+  font-weight: 600; 
+}
