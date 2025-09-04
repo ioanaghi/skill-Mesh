@@ -472,6 +472,39 @@ export default function App() {
     }));
   };
 
+  const addSkill = (name, category) => {
+    if (!name) return;
+    const id = uid("s");
+    setData((d) => ({
+      ...d,
+      skills: [
+        ...d.skills,
+        {
+          id,
+          name: name || "New skill",
+          category: category || "General",
+        },
+      ],
+    }));
+  };
+
+  const deleteSkill = (skillName) => {
+    setData((d) => ({
+      ...d,
+      skills: d.skills.filter((s) => s.name !== skillName),
+      // Also remove this skill from all people
+      people: d.people.map((p) => ({
+        ...p,
+        skills: p.skills.filter((s) => s.skill !== skillName),
+      })),
+      // Also remove this skill from all projects
+      projects: d.projects.map((pr) => ({
+        ...pr,
+        requires: pr.requires.filter((r) => r.skill !== skillName),
+      })),
+    }));
+  };
+
   const addProject = (title, owner, deadline) => {
     const id = uid("pr");
     setData((d) => ({
@@ -536,6 +569,8 @@ export default function App() {
 
   const [newProject, setNewProject] = useState({ title: "", owner: "", deadline: "" });
   const [newNeed, setNewNeed] = useState({ skill: "", level: 3, importanceLabel: "High", hours: 8 });
+
+  const [newSkill, setNewSkill] = useState({ name: "", category: "" });
 
   /* ---------- Data Management Functions ---------- */
   const handleExportData = () => {
@@ -867,6 +902,60 @@ export default function App() {
                 >
                   Add Skill
                 </button>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* ===== Skills Management ===== */}
+        <section className="card">
+          <div className="card-row">
+            <label className="label">Manage Skills</label>
+            <div className="row gap">
+              <input
+                className="input"
+                placeholder="Skill name"
+                value={newSkill.name}
+                onChange={(e) => setNewSkill({ ...newSkill, name: e.target.value })}
+              />
+              <select
+                className="input"
+                value={newSkill.category}
+                onChange={(e) => setNewSkill({ ...newSkill, category: e.target.value })}
+              >
+                <option value="">Select category...</option>
+                <option value="Quality">Quality</option>
+                <option value="Ops">Operations</option>
+                <option value="Digital">Digital</option>
+                <option value="Automation">Automation</option>
+                <option value="PM">Project Management</option>
+                <option value="General">General</option>
+              </select>
+              <button
+                className="btn btn-primary"
+                onClick={() => {
+                  addSkill(newSkill.name, newSkill.category);
+                  setNewSkill({ name: "", category: "" });
+                }}
+              >
+                Add Skill
+              </button>
+            </div>
+          </div>
+
+          <div className="card-row">
+            <div className="tile">
+              <div className="tile-title">All Skills ({data.skills.length})</div>
+              <div className="chips">
+                {data.skills.map((s) => (
+                  <span key={s.id} className="chip">
+                    {s.name} 
+                    <span style={{ opacity: 0.7, fontSize: '11px' }}> • {s.category}</span>
+                    <button className="chip-x" onClick={() => deleteSkill(s.name)} title="Delete skill">
+                      ×
+                    </button>
+                  </span>
+                ))}
               </div>
             </div>
           </div>
