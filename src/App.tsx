@@ -762,16 +762,19 @@ export default function App() {
                     </option>
                   ))}
                 </select>
-                <input
-                  className="input num"
-                  type="number"
-                  min={1}
-                  max={5}
+                <select
+                  className="input"
                   value={newSkillForPerson.level}
                   onChange={(e) =>
-                    setNewSkillForPerson({ ...newSkillForPerson, level: parseInt(e.target.value || "3") })
+                    setNewSkillForPerson({ ...newSkillForPerson, level: parseInt(e.target.value) })
                   }
-                />
+                >
+                  <option value={1}>1 - Beginner</option>
+                  <option value={2}>2 - Basic</option>
+                  <option value={3}>3 - Intermediate</option>
+                  <option value={4}>4 - Advanced</option>
+                  <option value={5}>5 - Expert</option>
+                </select>
                 <button
                   className="btn btn-primary"
                   onClick={() => {
@@ -863,17 +866,19 @@ export default function App() {
                     </option>
                   ))}
                 </select>
-                <input
-                  className="input num"
-                  type="number"
-                  min={1}
-                  max={5}
+                <select
+                  className="input"
                   value={newNeed.level}
                   onChange={(e) =>
-                    setNewNeed({ ...newNeed, level: parseInt(e.target.value || "3") })
+                    setNewNeed({ ...newNeed, level: parseInt(e.target.value) })
                   }
-                  placeholder="Level"
-                />
+                >
+                  <option value={1}>1 - Beginner</option>
+                  <option value={2}>2 - Basic</option>
+                  <option value={3}>3 - Intermediate</option>
+                  <option value={4}>4 - Advanced</option>
+                  <option value={5}>5 - Expert</option>
+                </select>
                 <select
                   className="input"
                   value={newNeed.importanceLabel}
