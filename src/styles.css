@@ -1,5 +1,6 @@
-/* ---- Dark Theme Global Palette & Resets ---- */
-:root{
+/* ---- Theme Variables ---- */
+:root {
+  /* Dark Theme (Default) */
   --bg: #0f0f23;          /* dark page background */
   --surface: #1a1a2e;     /* dark cards/sections */
   --surface-light: #16213e; /* slightly lighter surface */
@@ -32,45 +33,79 @@
   --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
 }
 
-/* Force dark background on all elements */
+/* Light Theme */
+[data-theme="light"] {
+  --bg: #f8fafc;          /* light page background */
+  --surface: #ffffff;     /* light cards/sections */
+  --surface-light: #f1f5f9; /* slightly darker surface */
+  --surface-hover: #e2e8f0; /* hover state surface */
+  --ink: #0f172a;         /* dark main text */
+  --muted: #64748b;      /* secondary text */
+  --muted-light: #475569; /* darker muted text */
+  --primary: #3b82f6;     /* blue primary */
+  --primary-600: #2563eb;
+  --primary-400: #60a5fa;
+  --accent: #06b6d4;      /* cyan accent */
+  --warn: #f59e0b;        /* amber warning */
+  --danger: #ef4444;      /* red danger */
+  --success: #10b981;     /* green success */
+  --border: #e2e8f0;      /* light border */
+  --border-light: #cbd5e1;
+  --chip: #f1f5f9;        /* light chip background */
+  --chip-hover: #e2e8f0;
+  
+  /* Gradients */
+  --gradient-primary: linear-gradient(135deg, #3b82f6 0%, #60a5fa 100%);
+  --gradient-surface: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+  --gradient-danger: linear-gradient(135deg, #ef4444 0%, #f87171 100%);
+  --gradient-success: linear-gradient(135deg, #10b981 0%, #34d399 100%);
+  
+  /* Shadows */
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+}
+
+/* Theme-aware backgrounds */
 .page, .container, .panel-grid, .card, .tile, .chips, .graph-wrap, .report {
-  background: var(--bg) !important;
+  background: var(--bg);
 }
 
 .page .container {
-  background: var(--bg) !important;
+  background: var(--bg);
 }
 
 .page .container .panel-grid {
-  background: var(--bg) !important;
+  background: var(--bg);
 }
 
 .page .container .panel-grid .card {
-  background: var(--surface) !important;
+  background: var(--surface);
 }
 
-/* Ensure all main containers use dark background */
+/* Ensure all main containers use theme background */
 main {
-  background: var(--bg) !important;
+  background: var(--bg);
 }
 
 section {
-  background: var(--bg) !important;
+  background: var(--bg);
 }
 
-/* Override any light backgrounds */
+/* Theme-aware component backgrounds */
 .card, .tile, .chips, .graph-wrap, .report, .panel {
-  background: var(--surface) !important;
+  background: var(--surface);
 }
 
-/* Ensure the page background is dark */
+/* Ensure the page background uses theme */
 html, body, #root {
-  background: var(--bg) !important;
+  background: var(--bg);
 }
 
-/* Force dark theme on all containers */
+/* Theme-aware containers */
 .container, .grid-2, .panel-grid {
-  background: var(--bg) !important;
+  background: var(--bg);
 }
 
 /* Page */
@@ -204,9 +239,10 @@ body{
   display: block;
 }
 
-/* Dark theme inputs / selects */
+/* Theme-aware inputs / selects */
 input[type="text"],
 input[type="number"],
+input[type="text"].input.num,
 select {
   background: var(--surface-light);
   color: var(--ink);
@@ -233,7 +269,7 @@ select option {
   background: var(--surface-light); 
 }
 
-/* Enhanced select styling for dark theme */
+/* Enhanced select styling for theme */
 select {
   background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%23ffffff' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='m6 8 4 4 4-4'/%3e%3c/svg%3e");
   background-position: right 12px center;
@@ -249,48 +285,48 @@ select:hover {
   border-color: var(--border-light);
 }
 
-/* Force dark theme on all select elements */
+/* Theme-aware select elements */
 select, select *, option {
-  background-color: var(--surface-light) !important;
-  color: var(--ink) !important;
-  border-color: var(--border) !important;
+  background-color: var(--surface-light);
+  color: var(--ink);
+  border-color: var(--border);
 }
 
 select option:hover {
-  background-color: var(--surface-hover) !important;
+  background-color: var(--surface-hover);
 }
 
 select option:checked {
-  background-color: var(--primary) !important;
-  color: white !important;
+  background-color: var(--primary);
+  color: white;
 }
 
-/* Ensure dropdown arrow is visible in dark theme */
+/* Ensure dropdown arrow is visible */
 select::-ms-expand {
   display: none;
 }
 
-/* Additional select styling for better dark theme appearance */
+/* Additional select styling for better theme appearance */
 select.input {
-  background-color: var(--surface-light) !important;
-  color: var(--ink) !important;
+  background-color: var(--surface-light);
+  color: var(--ink);
 }
 
 select.input option {
-  background-color: var(--surface-light) !important;
-  color: var(--ink) !important;
+  background-color: var(--surface-light);
+  color: var(--ink);
 }
 
 select.input option:hover {
-  background-color: var(--surface-hover) !important;
+  background-color: var(--surface-hover);
 }
 
 select.input option:checked {
-  background-color: var(--primary) !important;
-  color: white !important;
+  background-color: var(--primary);
+  color: white;
 }
 
-/* Dark theme buttons */
+/* Theme-aware buttons */
 .btn {
   display: inline-flex; 
   align-items: center; 
@@ -363,7 +399,7 @@ select.input option:checked {
   }
 }
 
-/* Dark theme skill / need chips */
+/* Theme-aware skill / need chips */
 .chips {
   background: var(--surface-light);
   border-radius: 16px; 
@@ -396,9 +432,9 @@ select.input option:checked {
 }
 
 .chip .x { 
-  background: var(--danger); 
+  background: rgba(0, 0, 0, 0.1); 
   border: none; 
-  color: #fff; 
+  color: var(--muted); 
   border-radius: 50%; 
   width: 20px; 
   height: 20px; 
@@ -411,11 +447,12 @@ select.input option:checked {
 }
 
 .chip .x:hover {
-  background: #dc2626;
+  background: rgba(0, 0, 0, 0.2);
+  color: var(--ink);
   transform: scale(1.1);
 }
 
-/* Dark theme graph section */
+/* Theme-aware graph section */
 .graph-wrap{
   background: var(--surface);
   border: 1px solid var(--border);
@@ -433,7 +470,7 @@ select.input option:checked {
   border-radius: 12px;
 }
 
-/* Dark theme report section */
+/* Theme-aware report section */
 .report {
   background: var(--surface);
   border: 1px solid var(--border);
@@ -443,7 +480,7 @@ select.input option:checked {
   box-shadow: var(--shadow-md);
 }
 
-/* Dark theme highlight rows and cells */
+/* Theme-aware highlight rows and cells */
 .warn-row { 
   background: rgba(245, 158, 11, 0.1); 
 }

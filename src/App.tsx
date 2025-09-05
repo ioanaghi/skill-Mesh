@@ -373,11 +373,27 @@ export default function App() {
     const loadedData = loadDataFromStorage();
     return loadedData.projects.length > 0 ? loadedData.projects[0].id : SEED.projects[0].id;
   });
+  const [isDarkTheme, setIsDarkTheme] = useState(() => {
+    const saved = localStorage.getItem('skillmesh-theme');
+    return saved ? saved === 'dark' : true; // Default to dark theme
+  });
 
   // Auto-save data whenever it changes
   useEffect(() => {
     saveDataToStorage(data);
   }, [data]);
+
+  // Auto-save theme preference
+  useEffect(() => {
+    localStorage.setItem('skillmesh-theme', isDarkTheme ? 'dark' : 'light');
+    // Apply theme to document
+    document.documentElement.setAttribute('data-theme', isDarkTheme ? 'dark' : 'light');
+  }, [isDarkTheme]);
+
+  // Theme toggle function
+  const toggleTheme = () => {
+    setIsDarkTheme(prev => !prev);
+  };
 
   const cyRef = useRef(null);
   const elements = useMemo(() => buildGraph({ data }), [data]);
@@ -630,6 +646,9 @@ export default function App() {
         <div className="brand-dot" />
         <div className="brand">SkillMesh — People/Projects • Graph • Report</div>
         <div style={{ marginLeft: 'auto', display: 'flex', gap: '8px', alignItems: 'center' }}>
+          <button className="btn btn-ghost" onClick={toggleTheme} title={`Switch to ${isDarkTheme ? 'light' : 'dark'} theme`}>
+            {isDarkTheme ? '☀️' : '🌙'} {isDarkTheme ? 'Light' : 'Dark'}
+          </button>
           <button className="btn btn-ghost" onClick={handleExportData} title="Export data to file">
             💾 Export
           </button>
@@ -892,12 +911,35 @@ export default function App() {
                 </select>
                 <input
                   className="input num"
-                  type="number"
-                  min={0}
+                  type="text"
                   value={newNeed.hours}
-                  onChange={(e) => setNewNeed({ ...newNeed, hours: parseFloat(e.target.value || "0") })}
+                  onChange={(e) => {
+                    const inputValue = e.target.value;
+                    // Allow empty input or valid numbers
+                    if (inputValue === '' || /^\d+$/.test(inputValue)) {
+                      const v = inputValue === '' ? 0 : Math.max(0, Number(inputValue));
+                      setNewNeed({ ...newNeed, hours: v });
+                    }
+                  }}
                   placeholder="Hours"
+                  list="hours-suggestions"
                 />
+                <datalist id="hours-suggestions">
+                  <option value="1">1h</option>
+                  <option value="2">2h</option>
+                  <option value="4">4h</option>
+                  <option value="8">8h</option>
+                  <option value="12">12h</option>
+                  <option value="16">16h</option>
+                  <option value="20">20h</option>
+                  <option value="24">24h</option>
+                  <option value="32">32h</option>
+                  <option value="40">40h</option>
+                  <option value="48">48h</option>
+                  <option value="60">60h</option>
+                  <option value="80">80h</option>
+                  <option value="100">100h</option>
+                </datalist>
                 <button
                   className="btn btn-primary"
                   onClick={() => {
@@ -968,7 +1010,21 @@ export default function App() {
 
         {/* ===== Graph ===== */}
         <section className="card graph-card">
-          <div className="section-title">Graph</div>
+          <div className="graph-header">
+            <div className="section-title">Graph</div>
+            <button 
+              className="btn btn-ghost reset-zoom-btn" 
+              onClick={() => {
+                if (cyRef.current) {
+                  cyRef.current.fit();
+                  cyRef.current.center();
+                }
+              }}
+              title="Reset zoom and center the graph"
+            >
+              🔍 Reset Zoom
+            </button>
+          </div>
           <div className="graph-wrap">
             <CytoscapeComponent
               elements={CytoscapeComponent.normalizeElements(elements)}
