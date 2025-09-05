@@ -199,3 +199,9 @@ select.input option {
   background: #ff4d4d;
 }
 
+/* Make project select dropdown wider */
+.project-select {
+  min-width: 200px;
+  flex: 1;
+}
+

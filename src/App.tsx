@@ -793,7 +793,7 @@ export default function App() {
             <div className="card-row">
               <label className="label">Select Project</label>
               <div className="row">
-                <select className="input" value={projectId} onChange={(e) => setProjectId(e.target.value)}>
+                <select className="input project-select" value={projectId} onChange={(e) => setProjectId(e.target.value)}>
                   {data.projects.map((p) => (
                     <option key={p.id} value={p.id}>
                       {p.title}
