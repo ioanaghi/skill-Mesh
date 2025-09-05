@@ -74,7 +74,7 @@ body { margin: 0; font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI
 
 /* inputs/buttons */
 .input { height: 36px; padding: 0 10px; border: 1px solid #334155; border-radius: 10px; background:#1e293b; color: #ffffff; min-width: 0; }
-.input.num { width: 74px; text-align: center; }
+.input.num { width: 100px; text-align: center; }
 .btn { height: 36px; padding: 0 12px; border-radius: 10px; border: 1px solid var(--border); background: #fff; cursor: pointer; }
 .btn:hover { background: #f3f4f6; }
 .btn.primary { background: var(--brand); color: #fff; border-color: var(--brand); }
